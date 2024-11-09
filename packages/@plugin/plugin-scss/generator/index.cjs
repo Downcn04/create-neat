@@ -1,4 +1,7 @@
-const { pluginToTemplateProtocol } = require("'../../../core/src/configs/protocol.ts'"); // todo: 新增 alias
+const {
+  pluginToTemplateProtocol,
+  commonProtocol,
+} = require("'../../../core/src/configs/protocol.ts'"); // todo: 新增 alias
 
 module.exports = (generatorAPI) => {
   generatorAPI.extendPackage({
@@ -8,13 +11,34 @@ module.exports = (generatorAPI) => {
   });
 
   generatorAPI.protocolGenerate({
-    [pluginToTemplateProtocol.ENTRY_FILE]: {
+    [commonProtocol.ENTRY_FILE]: {
       // 入口文件引入全局 scss 文件
       params: {
-        content: "import './styles/main.scss'", // 全局样式文件路径
-        // ……
+        affects: {
+          template: {
+            description: "影响框架入口文件配置",
+            changes: {
+              description: "入口引入全局scss文件",
+              content: "import './style/index.scss'",
+            },
+          },
+        },
       },
       priority: 1, // 优先级
+    },
+    [pluginToTemplateProtocol.INSERT_STYLE]: {
+      params: {
+        affects: {
+          template: {
+            description: "影响框架根组件文件配置",
+            changes: {
+              description: "根组件引入scss",
+              content: '<style lang="scss">',
+            },
+          },
+        },
+      },
+      priority: 2,
     },
   });
 };

@@ -1,102 +1,12 @@
 // 通用协议
 export const commonProtocol = {
-  ENTRY_FILE: [
-    //入口文件配置
-    {
-      pluginName: "scss",
-      version: "@latest",
-      affects: {
-        template: {
-          description: "影响框架入口文件配置",
-          changes: {
-            description: "入口引入全局scss文件",
-            content: "import './style/index.scss'",
-          },
-        },
-      },
-    },
-    {
-      pluginName: "element-plus",
-      version: "@latest",
-      affects: {
-        template: {
-          description: "影响框架入口文件配置",
-          changes: {
-            description: "入口引入全局element-plus",
-            content: `
-  import ElementPlus from 'element-plus'
-  import 'element-plus/dist/index.css'
-`,
-          },
-        },
-      },
-    },
-    {
-      pluginName: "Pinia",
-      version: "@latest",
-      affects: {
-        template: {
-          description: "影响框架入口文件配置",
-          changes: {
-            description: "入口引入全局Pinia",
-            content: "import { createPinia } from 'pinia' ",
-          },
-        },
-      },
-    },
-  ],
+  ENTRY_FILE: "ENTRY_FILE", // 入口文件配置，如：入口文件引入全局 less、scss
 };
 // 插件对框架的协议
 export const pluginToTemplateProtocol = {
-  INSERT_STYLE: [
-    {
-      pluginName: "scss",
-      version: "@latest",
-      affects: {
-        template: {
-          description: "影响框架根组件文件配置",
-          changes: {
-            description: "根组件引入scss",
-            content: '<style lang="scss">',
-          },
-        },
-      },
-    },
-  ],
-  INSERT_ROOTFILE: [
-    {
-      pluginName: "Pinia",
-      version: "@latest",
-      affects: {
-        template: {
-          description: "影响框架根入口文件配置",
-          changes: [
-            {
-              description: "创建Pinia实例",
-              content: "const Pinia=createPinia()",
-            },
-            {
-              description: "增加use",
-              content: "app.use(Pinia)",
-            },
-          ],
-        },
-      },
-    },
-    {
-      pluginName: "element-plus",
-      version: "@latest",
-      affects: {
-        template: {
-          description: "影响框架根入口文件配置",
-          changes: {
-            description: "增加useElementPlus",
-            content: "app.use(ElementPlus)",
-          },
-        },
-      },
-    },
-  ],
+  INSERT_STYLE: "INSERT_STYLE", // style标签中添加内容
+  INSERT_ROOTFILE: "INSERT_ROOTFILE", // 在根文件中添加语句
+  // ……
 };
 
 // 插件对构建工具的协议
